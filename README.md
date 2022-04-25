@@ -1,6 +1,8 @@
 # THEBluePyScanner
 Python Based Bluetooth Scanner
 
+(It's pronounced thE not the)
+
 WHAT YOU DO WITH THIS CODE HAS NOTHING TO DO WITH ME. I MADE THIS CODE BY COPYING AND PASTING OTHERS CODE SO WHATEVER YOU DO IS NOT ON ME!
 
 # Notes
