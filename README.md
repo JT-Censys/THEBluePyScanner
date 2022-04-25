@@ -1,4 +1,4 @@
 # THEBluePyScanner
 Python Based Bluetooth Scanner
 
-Once I figure out how to make whatever people do with the code not legally binding on me I'll post the code.
+WHAT YOU DO WITH THIS CODE HAS NOTHING TO DO WITH ME. I MADE THIS CODE BY COPYING AND PASTING OTHERS CODE SO WHATEVER YOU DO IS NOT ON ME!
