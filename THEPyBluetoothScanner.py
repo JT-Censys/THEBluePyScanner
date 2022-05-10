@@ -1,7 +1,17 @@
 import time
 import bluetooth
 import os
+import sys
+import logging
 from bluepy.btle import Scanner, DefaultDelegate
+
+if sys.argv[1] == "-V":
+    LvlLog = logging.DEBUG
+else:
+    LvlLog = logging.WARNING
+
+logging.basicConfig(level=LvlLog, filename='Logging.log',filemode='w',
+                    format="%(asctime)s - %(levelname)s - %(message)s")
 
 #I don't really know what this does, but it works.
 class ScanDelegate(DefaultDelegate):
@@ -10,18 +20,17 @@ class ScanDelegate(DefaultDelegate):
 
     def handleDiscovery(self, dev, isNewDev, isNewData):
         if isNewDev:
-            print ("Discovered device", dev.addr)
+            logging.info("Discovered device", dev.addr)
         elif isNewData:
-            print ("Received new data from", dev.addr)
+            logging.info("Received new data from", dev.addr)
             NEWDATA.append(dev)
 
 #Notice this in an infinite loop
-i = 0
-while i == i:
-    print("Searching BT4...")
+while True:
+    logging.debug("Searching BT4...")
     nearby_devices = bluetooth.discover_devices()
     for bdaddr in nearby_devices:
-        print(bdaddr)
+        logging.info('Found BT4: ', str(bdaddr))
         nearby_device_name = bluetooth.lookup_name(bdaddr)
         #its a file path might be different for yours
         filepath = ("./BlueToothScannedDevices/" + str(nearby_device_name) + ".txt")
@@ -31,9 +40,9 @@ while i == i:
             file = open(filepath, "a")
             file.write("Address: " + bdaddr + "\nServices: \n" + nearby_device_services)
             file.close
-    print("Transferring to LE...")
+    logging.debug("Transferring to LE...")
     time.sleep(15)
-    print("Searching LE...")
+    logging.debug("Searching LE...")
     NEWDATA = []
     scanner = Scanner().withDelegate(ScanDelegate())
     devices = scanner.scan(5.0)
@@ -57,6 +66,6 @@ while i == i:
         file = open(filepath, "a")
         file.write(LEDATA + "\n")
         file.close
-    print("Number of devices found: " + str(NumberOfDevices))
-    print("Transferring to BT4...")
+    logging.info("Number of devices found: " + str(NumberOfDevices))
+    logging.debug("Transferring to BT4...")
     time.sleep(15)
